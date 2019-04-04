@@ -180,7 +180,7 @@
     ```
     helm fetch loghouse/loghouse --untar
     ```
-- устанавливаем. предварительно ограничив потребляемые ресурсы и выключив htps
+- устанавливаем, предварительно ограничив потребляемые ресурсы и выключив https
     ```
     helm install --namespace loghouse -n loghouse loghouse --set clickhouse.resources.limits.cpu=1,clickhouse.resources.requests.cpu=1,clickhouse.resources.limits.memory=1G,clickhouse.resources.requests.memory=1G,ingress.enable_https=false
     ```
