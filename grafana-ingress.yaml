@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+spec:
+  rules:
+  - host: grafana.mydomain.io
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 3000

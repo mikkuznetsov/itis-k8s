@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+spec:
+  rules:
+  - host: cafe.mydomain.io
+    http:
+      paths:
+      - backend:
+          serviceName: tea-svc
+          servicePort: 80
