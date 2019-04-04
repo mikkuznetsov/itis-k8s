@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: loghouse
+  namespace: loghouse
+spec:
+  rules:
+  - host: loghouse.com
+    http:
+      paths:
+      - backend:
+          serviceName: loghouse
+          servicePort: 80

@@ -5,15 +5,10 @@
 - скачать ключ для своего пользователя
 - сделать правильные права для ключа
     ```
-    sudo chmod /папка_где_лежит_ключ_/itis-user000
+    sudo chmod 400 /папка_где_лежит_ключ_/itis-user000
     ```
 
 - проверить версию питона и установить пакет `pip`
-- установить ансибл
-
-    ```
-    pip install ansible
-    ```
 - убедиться в работоспособности ключа
     ```
     ssh itis-user000@ip_адрес -i /папка_где_лежит_ключ_/itis-user000
@@ -173,8 +168,31 @@
 
 
 #### 6. loghouse
-- ворк ин прогресс
+- запускаем helm
+    ```
+    helm init
+    ```
+- добавляем репозиторий с логхаусом
+    ```
+    helm repo add loghouse https://flant.github.io/loghouse/charts/
+    ```
+- выкачиваем пакет
+    ```
+    helm fetch loghouse/loghouse --untar
+    ```
+- устанавливаем. предварительно ограничив потребляемые ресурсы и выключив htps
+    ```
+    helm install --namespace loghouse -n loghouse loghouse --set clickhouse.resources.limits.cpu=1,clickhouse.resources.requests.cpu=1,clickhouse.resources.limits.memory=1G,clickhouse.resources.requests.memory=1G,ingress.enable_https=false
+    ```
+- ждем, пока установится
+- добавляем ингресс для логхауса из этого проекта
+    ```
+    kubectl apply -f loghouse-ingress.yaml
+    ```
+- правим у себя на рабочей машине файл `/etc/hosts`,
 
-#### примеры взяты из:
-- https://github.com/nginxinc/kubernetes-ingress/tree/master/examples/complete-example
-- 
+    ```
+    172.243.78.168   loghouse.com
+    172.244.27.147   loghouse.com
+    ```
+- проверяем браузером работу мониторинга
