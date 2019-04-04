@@ -159,7 +159,7 @@
     kubectl create -f manifests/ 2>/dev/null || true
     ```
 - смотрим что получилось в неймспейсе monitoring
-- добавляем ингресс для графаны
+- добавляем ингресс для графаны из этого проекта
     ```
     kubectl apply -f grafana-ingress.yaml 
     ```
